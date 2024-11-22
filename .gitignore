@@ -1,0 +1,10 @@
+#CONFIG FILES
+.dotenv
+
+#DATA DB FOLDER
+
+/data
+
+/node_modules
+
+package-lock.json
