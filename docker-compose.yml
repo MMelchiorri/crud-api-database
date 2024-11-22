@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  crud-api-app:
+    image: 'node:20'
+    ports:
+      - '3000:3001'
+    volumes:
+      - ./:/project
+    working_dir: /project
+    depends_on:
+      - mongo-db
+    networks:
+      - app-network
+    command: npm run start
+
+  mongo-db:
+    image: 'mongo'
+    container_name: 'mongo-db'
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'admin'
+      MONGO_INITDB_ROOT_PASSWORD: 'pass'
+    volumes:
+      - ./data/mongo:/data/db
+    networks:
+      - app-network
+
+  mongo-express:
+    image: 'mongo-express:latest'
+    container_name: 'mongo-express'
+    ports:
+      - '8001:8081'
+    environment:
+      ME_CONFIG_MONGODB_SERVER: 'mongo-db'
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+      ME_CONFIG_MONGODB_AUTH_DATABASE: 'admin'
+      ME_CONFIG_MONGODB_AUTH_USERNAME: 'admin'
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: 'pass'
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
