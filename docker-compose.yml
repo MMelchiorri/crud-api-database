@@ -4,7 +4,7 @@ services:
   crud-api-app:
     image: 'node:20'
     ports:
-      - '3000:3001'
+      - '300:3001'
     volumes:
       - ./:/project
     working_dir: /project
@@ -17,8 +17,6 @@ services:
   mongo-db:
     image: 'mongo'
     container_name: 'mongo-db'
-    ports:
-      - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'admin'
       MONGO_INITDB_ROOT_PASSWORD: 'pass'
