@@ -8,11 +8,14 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(cors())
+app.use(express.json())
+app.use(router)
 
-routes.forEach((route) => {
-  router[route.method](route.path, route.handler)
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`)
 })
 
-app.listen(3000, () => {
-  console.log(`server is listening on port ${port}`)
+routes.forEach((route) => {
+  console.log(route)
+  router[route.method](route.path, [route.controller])
 })

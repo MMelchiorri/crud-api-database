@@ -2,21 +2,13 @@ const user = require('../controllers/user.js')
 
 module.exports = [
   {
-    method: 'GET',
+    method: 'get',
     path: '/user',
     controller: user.getAll,
   },
   {
-    method: 'POST',
+    method: 'post',
     path: '/user',
     controller: user.create,
-  },
-  {
-    method: 'PUT',
-    path: '/user/:{user}',
-  },
-  {
-    method: 'DELETE',
-    path: '/user/:{user}',
   },
 ]
