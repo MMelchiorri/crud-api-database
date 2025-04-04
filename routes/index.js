@@ -1,3 +1,3 @@
-import userRouter from './user.js';
+const userRouter = require('./user')
 
-module.exports = [userRouter];
+module.exports = [userRouter]
