@@ -11,4 +11,9 @@ module.exports = [
     path: '/user',
     controller: user.create,
   },
+  {
+    method: 'delete',
+    path: '/user/:id',
+    controller: user.delete,
+  },
 ]
