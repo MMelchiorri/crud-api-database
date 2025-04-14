@@ -1,4 +1,5 @@
 const User = require('../schema/userSchema.js')
+const bcrypt = require('bcryptjs')
 
 exports.create = async (req, res) => {
   const { name, email, password } = req.body
@@ -6,12 +7,14 @@ exports.create = async (req, res) => {
   if (!name || !email || !password) {
     return res.status(400).json({ message: 'All fields are required' })
   }
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = bcrypt.hashSync(password, salt)
 
   try {
     const user = await User.create({
       name,
       email,
-      password,
+      password: hashedPassword,
     })
 
     res.status(201).json({
@@ -23,18 +26,15 @@ exports.create = async (req, res) => {
       },
     })
   } catch (error) {
-    console.error('User creation failed:', error)
     res.status(500).json({ message: 'Error creating user' })
   }
 }
 
 exports.getAll = async (req, res) => {
-  console.log('Fetching all users')
   try {
     const users = await User.find({})
     res.status(200).json({ message: 'All users', users })
   } catch (error) {
-    console.log('Error fetching users:', error)
     res.status(500).json({ message: 'Error fetching users' })
   }
 }
